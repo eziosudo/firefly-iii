@@ -42,6 +42,7 @@ return [
         'description_contains'            => ['alias' => false, 'needs_context' => true],
         'description_ends'                => ['alias' => false, 'needs_context' => true],
         'description_starts'              => ['alias' => false, 'needs_context' => true],
+        'description_regex'               => ['alias' => false, 'needs_context' => true],
         'notes_is'                        => ['alias' => false, 'needs_context' => true],
         'notes_are'                       => ['alias' => true, 'alias_for' => 'notes_is', 'needs_context' => true],
         'notes_contains'                  => ['alias' => false, 'needs_context' => true],

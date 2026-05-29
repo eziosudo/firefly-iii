@@ -265,6 +265,29 @@ class GroupCollector implements GroupCollectorInterface
         return $this;
     }
 
+    public function descriptionRegex(string $pattern): GroupCollectorInterface
+    {
+        $this->query->where(static function (EloquentBuilder $q) use ($pattern): void {
+            $q->where('transaction_journals.description', 'REGEXP', $pattern)
+              ->orWhere('transaction_groups.title', 'REGEXP', $pattern);
+        });
+
+        return $this;
+    }
+
+    public function descriptionDoesNotMatchRegex(string $pattern): GroupCollectorInterface
+    {
+        $this->query->where(static function (EloquentBuilder $q) use ($pattern): void {
+            $q->where('transaction_journals.description', 'NOT REGEXP', $pattern);
+            $q->where(static function (EloquentBuilder $q2) use ($pattern): void {
+                $q2->where('transaction_groups.title', 'NOT REGEXP', $pattern)
+                   ->orWhereNull('transaction_groups.title');
+            });
+        });
+
+        return $this;
+    }
+
     public function dumpQuery(): void
     {
         $query  = $this->query->select($this->fields)->toSql();

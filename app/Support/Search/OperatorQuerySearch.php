@@ -1748,6 +1748,16 @@ class OperatorQuerySearch implements SearchInterface
 
                 break;
 
+            case 'description_regex':
+                $this->collector->descriptionRegex($value);
+
+                break;
+
+            case '-description_regex':
+                $this->collector->descriptionDoesNotMatchRegex($value);
+
+                break;
+
                 // currency
 
             case 'currency_is':

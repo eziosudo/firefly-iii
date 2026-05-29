@@ -463,6 +463,18 @@ class FireflyValidator extends Validator
             return '' !== $value;
         }
 
+        // regex triggers: must be non-empty AND a valid PCRE pattern
+        if (in_array($triggerType, ['description_regex'], true)) {
+            if ('' === $value) {
+                return false;
+            }
+            set_error_handler(static function (): bool { return true; });
+            $valid = false !== @preg_match(sprintf('/%s/', $value), '');
+            restore_error_handler();
+
+            return $valid;
+        }
+
         // check if it's an existing account.
         // TODO create a helper to automatically return these.
         if (in_array($triggerType, ['destination_account_id', 'source_account_id'], true)) {

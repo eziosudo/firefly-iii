@@ -130,6 +130,10 @@ interface GroupCollectorInterface
      */
     public function descriptionStarts(array $array): self;
 
+    public function descriptionRegex(string $pattern): self;
+
+    public function descriptionDoesNotMatchRegex(string $pattern): self;
+
     /**
      * These accounts must not be accounts.
      */
